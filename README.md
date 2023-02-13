@@ -302,60 +302,57 @@ reporterThread. interrupt();
 
 
 ## Scheduler
-• Operating system process
-• Responsible for scheduling a thread to an available processor core
+* Operating system process
+* Responsible for scheduling a thread to an available processor core
 
 ## Scheduler
-• Unschedules a running thread temporarily as needed
-• Tries to be fair
-• Honors priorities
-• Non deterministic
+* Unschedules a running thread temporarily as needed
+* Tries to be fair
+* Honors priorities
+* Non deterministic
 
 ## Two threads running on two cores
-Parellelism
+* Parellelism
 
 ## 10 threads running on one core
-Concurrency
+* Concurrency
 
 ## Concurrency
-• Can be done with multicore CPUs
-• Can be done with single core CPUs
+* Can be done with multicore CPUs
+* Can be done with single core CPUs
 
 ## Parallelism
-By definition, needs multiple cores
+* By definition, needs multiple cores
 
 ## Need for Concurrency
 
-Threads don't share data?
+* Threads don't share data?
 No problem
 
-Threads share constant (unchanging) data
+* Threads share constant (unchanging) data
 No problem
 
-Threads read and write to the same data
+* Threads read and write to the same data
 Problem
 
 ## Two Race Condition Patterns
 
-Pattern
-Check-then-act
-
-Pattern
-Read-modify-write
+* Check-then-act
+* Read-modify-write
 
 # Solving race conditions
 
 ## The solution
-Make sure only one thread can "pick up" a data element
+* Make sure only one thread can "pick up" a data element
 
 ## Lock and key model
 
 ## Coordinating access
 
 ## Synchronization
-Make sure two threads don't simultaneously access a critical data element
-Data , not Code
-JVM Feature
+* Make sure two threads don't simultaneously access a critical data element
+* Data , not Code
+* JVM Feature
 
 ```java
 public void increment() {
@@ -364,23 +361,23 @@ public void increment() {
     }
 }
 ```
-Analogy
-• Only one guest can use any hotel room at a time - Wrong
-• Given a hotel room, only one guest can use that room at a time - Correct
+## Analogy
+* Only one guest can use any hotel room at a time - Wrong
+* Given a hotel room, only one guest can use that room at a time - Correct
 
-Writing Synchronization
-• Programmer marks a data element as a lock
-• Programmer marks a piece of code to be accessible by the lock holder
+## Writing Synchronization
+* Programmer marks a data element as a lock
+* Programmer marks a piece of code to be accessible by the lock holder
 
-How synchronization works
-• JVM creates a virtual "lock" from the data element
-• Thread tries to "acquire" a lock
-• If it acquires it, it can execute the synchronized code
-• Thread finishes executing block and "releases" lock
-• All other threads that need to execute the block have to wait
+## How synchronization works
+* JVM creates a virtual "lock" from the data element
+* Thread tries to "acquire" a lock
+* If it acquires it, it can execute the synchronized code
+* Thread finishes executing block and "releases" lock
+* All other threads that need to execute the block have to wait
 
-Semi-declarative
-You declare to specify the hotel room and the key
+## Semi-declarative
+* You declare to specify the hotel room and the key
 
 ## Synchronized block
 ```java
@@ -397,4 +394,6 @@ synchronized (objectRef) {
 
 ## Critical section
 
+## Monitors
+* Obiect based isolation
 
