@@ -397,3 +397,175 @@ synchronized (objectRef) {
 ## Monitors
 * Obiect based isolation
 
+```java
+public void methodA() {
+    synchronized (obj1) {
+    // synchronized code here
+    }
+}
+public void methodB() {
+    synchronized (obj1) {
+    // some other synchronized code here
+    }
+}
+```
+## Synchronized method
+```java
+public synchronized increment() {
+}
+```
+## Synchronized methods
+* Lock is associated with the object whose method is being called
+* Lock is implicitly applied on "this".
+
+## What synchronization achieves
+• Mutual exclusion
+• Visibility
+
+## Mutual exclusion
+Mutex
+
+## Visibility
+• Value is read from memory before block execution
+• Value is written to memory after execution completes
+
+## Structured lock
+1. Block structure using synchronized
+2. Acquiring and releasing locks are implicit
+3. Example: Exception causing control to exit: lock auto-released
+
+## Structured lock
+1. Block structure using synchronized
+2. Acquiring and releasing locks are implicit
+3. Example: Exception causing control to exit: lock auto-released
+
+## Thread safe
+
+## Have we solved concurrency?
+No
+
+## Problem
+* Performance
+
+## Mutex locks
+Careful application needed
+
+## Mutex locks
+• Choose the right object for the lock
+• synchronize the bare minimum code necessary
+
+## Problem 1: Choosing the wrong lock
+Remember: It has to be the same lock!
+```java
+public void methodA() {
+    synchronized (obj1) {
+        // ...
+        methodB() ;
+    }
+}
+public void method() {
+    synchronized (obj2){
+        // ...
+    }
+}
+```
+
+## Problem 2: Extreme synchronization
+Non-concurrent (serial) code
+
+## Bigger problem
+Liveness
+
+# Liveness - deadlocks, livelocks and starvation
+
+## Liveness
+• State of general activity and motion
+• Requires a system to make progress
+• Not "stuck"
+• Something good will eventually occur
+
+## Program execution
+• Starts
+• Executes
+• Completes successfully or errors out
+• Hangs
+
+## What can cause liveness issues?
+The infinite loop
+
+## What can cause liveness issues?
+The Infinite loop
+
+## Liveness issues with concurrency
+• Deadlock
+• Livelock
+• Starvation
+
+## Deadlock
+• Multiple threads are waiting for other threads
+• The dependency is circular
+
+## Deadlock example
+The "No, you hang up first" problem
+Dependency is circular
+
+```java
+synchronized(objRef1) {
+    synchronized (objRef2) {
+        //
+    }
+}
+synchronized (objRef2) {
+    synchronized (objRef1) {
+        //
+    }
+}
+```
+
+## Other variants
+Circular invocation of synchronized methods
+s(a)->s(b), s(b)->s(c), s(c)->s(a)
+
+## Other variants
+Two threads invoking join on each other
+
+## Result
+Potentially threads waiting forever
+
+## Livelock
+A "smarter" deadlock
+
+## A naive solution to deadlock
+• Try to get lock 1
+• Try to get lock 2
+• If lock 2 not acquired in x ms, release lock 1
+• Try again after sometime
+
+## Livelock example
+Two people in each other's way in a corridor
+
+## Livelock
+• Potential deadlock
+• Steps taken to mitigate deadlock causes perpetual "corrective" action
+• Not completely "dead".
+• ..but all activity is just to get the lock
+
+## Stalemate in chess
+
+## Starvation
+Thread is ready to run but is never given a chance
+
+## Starvation example
+Low priority thread not scheduled by the executor
+
+## Indefinite postponement
+
+## Liveness issues with concurrency
+• Deadlock
+• Livelock
+• Starvation
+
+## How do you avoid them?
+• No Java / JVM feature to avoid these
+• Careful use of locks
+• Example: Avoid using more than one lock

@@ -31,3 +31,4 @@ public class Synchronised {
         new Thread(counter2,"c2").start();
     }
 }
+
