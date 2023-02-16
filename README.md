@@ -569,3 +569,134 @@ Low priority thread not scheduled by the executor
 • No Java / JVM feature to avoid these
 • Careful use of locks
 • Example: Avoid using more than one lock
+
+# The volatile keyword
+
+## The visibility problem
+
+## The synchronized keyword
+Fixes the problem at the boundaries
+
+## That may not always be ideal
+• Something else affects when the synchronized block ends
+• Synchronous access might not be a problem
+• You want to just fix visibility
+
+```java
+public class Foo {
+private volatile int value;
+}
+```
+
+Behavior - given order
+• Thread 1 writes variable (to memory)
+• Thread 2 reads variable (to memory)
+
+## Applies to other variables visible in a thread(but only those that are before)
+```java
+public class Foo {
+private volatile int value;
+private boolean hasValueUpdated;
+hasValueUpdated = true;
+value = 20;
+}
+```
+
+## Understanding thread local
+
+## Access a variable in multiple places in a thread
+
+```java
+Runnable r = () -> processUserData(userId);
+//...
+public void processUserData(int userId) {
+    doSomeStuff();
+    dootherStuff(); 
+    moreStuff();
+}
+```
+* Need to access the user ID in multiple places in the thread
+
+## Options
+## Need to access the user ID in multiple places in the thread
+1. Pass around the variable everywheie
+2. Use a class member variable
+
+## Another option
+* Use a thread local variable
+
+## Thread local
+1. Scope is per-thread
+2. "Global" in the context of thread instance
+3. Each thread just sees its own thread local variable
+
+## Declaring ThreadLocal
+```java
+ThreadLocal<Integer> threadLocalUserId = new ThreadLocal<>();
+```
+## Accessing ThreadLocal
+```java
+threadLocalUserId.set(1234);
+Integer userId = threadLocalUserId.get();
+```
+
+## ThreadLocal
+1. Generic class
+2. Almost like a wrapper
+3. Each thread sets and gets a different value
+
+# Unstructured locks
+
+## synchronized keyword
+1. Structured locks
+2. Acquire and release handled for you
+3. Nesting possible
+```java
+synchronized (obj1) {
+// Access obj1
+    synchronized (obj2) {
+    // Access obj1 and obj2
+    }
+}
+```
+## Sometimes, nesting might not work!
+```java
+for (int i = 0; i < arrsize - 2; i++) {
+process (arr[il, arrli + 1]);
+}
+```
+```java
+for (int i = 0; i < arrsize - 2; i++) {
+    synchronized(arr[i]) {
+        synchronized(arr[i + 1]) {
+            process (arr[i],arr[i + 1]);
+        }
+    }
+}
+```
+## Hand over hand locking
+```java
+private Lock l = new ReentrantLock()
+```
+
+```java
+public void run() {
+    l.lock();
+    this.increment();
+    System.out.printIn(Thread.currentThread().getName() + " increments: " + this .getValue());
+    this.decrement();
+    System.out.println(Thread. currentThread().getName() + " decrements: " + this.getValue());
+    l.unlock();
+}
+```
+
+```java
+lock()
+lockInterruptibly()
+newCondition()
+tryLock()
+tryLock(long time,TimeUnit unit)
+unlock()
+```
+
+## The Executor service
