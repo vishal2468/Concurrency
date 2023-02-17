@@ -700,3 +700,87 @@ unlock()
 ```
 
 ## The Executor service
+* High level API for executing tasks
+* Thread creation is resource intensive
+
+## Thread pool
+
+## Executor service
+1. Manages runnables (or "tasks") for you
+2. Provides extra abilities (like thread pool)
+3. Enables results
+
+## Runnable
+* "One way" task
+
+```java
+ExecutorService executorService = Executors.newFixedThreadPool (3);
+while(true){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("In I can tell you the nth prime number. Enter n: ");
+    int n = sc.nextInt();
+    if (n == 0) break;
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            int number = PrimeNumberUtil.calculatePrime(n);
+            System.out.println("\n Result:");
+            System.out.println("\n Value of " + n + "th prime: " + number);
+        };
+        executorService.execute(r);
+    }
+}
+```
+## How is this handled?
+* thread_pool_executor.png
+
+## Types of executors
+1. Fixed thread pool executor
+2. Single threaded executor
+3. Cached thread pool executor
+4. Scheduled thread pool executor
+5. Work stealing thread pool executor
+
+# Callable
+
+* runnable has a "one-way" task model.
+* for runnable method signature is always 
+```java 
+public void run()
+```
+```java
+Runnable r = new Runnable {
+    @Override
+    public void run() {
+    System.out.println("Printed from Runnable");
+    }
+};
+```
+
+## callable 
+
+```java
+Callable<String> c = new Callable<String>() {
+    @Override
+    public String call() throws Exception {
+        System.out.println("Printed from Callable");
+        return "Value from Callable";
+    }
+}:
+
+```
+* callable can return some value.
+* cannot pass a callable to a thread.
+* can pass a callable to executor service
+
+```java
+executorService.submit(c);
+//  executorService.submit(r); can also pass runnable to a submit method
+// we cant do String s=executorService.submit(c);
+// because then what is the use of it,think over it , dont skip it
+// executorService returns a future
+Future<String> ret = executorService.submit(c);
+//you can do things in the meantime
+// the below will be a blocking
+String retStr = ret.get();
+```
