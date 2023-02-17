@@ -69,7 +69,7 @@
 * Other threads for runtime concerns - like garbage collection
 
 ## Need more threads?
-Created using a language API
+* Created using a language API
 
 #  The Thread class
 
@@ -180,12 +180,12 @@ while (true){
 * Your new Thread (runnable).start() 
 
 ## When does a Java application end?
-When all the user threads have exited
+* When all the user threads have exited
 
-What if you don't want the application exit to wait for a thread? 
+## What if you don't want the application exit to wait for a thread? 
 Daemon threads
 
-Daemon Thread
+## Daemon Thread
 ```java
 Thread t = new Thread(r);
 t.setDaemon(true);
@@ -256,8 +256,8 @@ private static void waitForThreads(List<Thread> threads) throws InterruptedExcep
 ## Barrier synchronization
 
 ## Stopping a thread
-• Interrupt the thread
-• Have it voluntarily clean up and shut down
+* Interrupt the thread
+* Have it voluntarily clean up and shut down
 
 ## interrupt ()
 
@@ -326,14 +326,11 @@ reporterThread. interrupt();
 
 ## Need for Concurrency
 
-* Threads don't share data?
-No problem
+* Threads don't share data? No problem
 
-* Threads share constant (unchanging) data
-No problem
+* Threads share constant (unchanging) data ?No problem
 
-* Threads read and write to the same data
-Problem
+* Threads read and write to the same data? Problem
 
 ## Two Race Condition Patterns
 
@@ -419,15 +416,15 @@ public synchronized increment() {
 * Lock is implicitly applied on "this".
 
 ## What synchronization achieves
-• Mutual exclusion
-• Visibility
+* Mutual exclusion
+* Visibility
 
 ## Mutual exclusion
-Mutex
+* Mutex
 
 ## Visibility
-• Value is read from memory before block execution
-• Value is written to memory after execution completes
+* Value is read from memory before block execution
+* Value is written to memory after execution completes
 
 ## Structured lock
 1. Block structure using synchronized
@@ -442,20 +439,20 @@ Mutex
 ## Thread safe
 
 ## Have we solved concurrency?
-No
+* No
 
 ## Problem
 * Performance
 
 ## Mutex locks
-Careful application needed
+* Careful application needed
 
 ## Mutex locks
-• Choose the right object for the lock
-• synchronize the bare minimum code necessary
+* Choose the right object for the lock
+* synchronize the bare minimum code necessary
 
 ## Problem 1: Choosing the wrong lock
-Remember: It has to be the same lock!
+* Remember: It has to be the same lock!
 ```java
 public void methodA() {
     synchronized (obj1) {
@@ -471,43 +468,43 @@ public void method() {
 ```
 
 ## Problem 2: Extreme synchronization
-Non-concurrent (serial) code
+* Non-concurrent (serial) code
 
 ## Bigger problem
-Liveness
+* Liveness
 
 # Liveness - deadlocks, livelocks and starvation
 
 ## Liveness
-• State of general activity and motion
-• Requires a system to make progress
-• Not "stuck"
-• Something good will eventually occur
+* State of general activity and motion
+* Requires a system to make progress
+* Not "stuck"
+* Something good will eventually occur
 
 ## Program execution
-• Starts
-• Executes
-• Completes successfully or errors out
-• Hangs
+* Starts
+* Executes
+* Completes successfully or errors out
+* Hangs
 
 ## What can cause liveness issues?
-The infinite loop
+* The infinite loop
 
 ## What can cause liveness issues?
-The Infinite loop
+* The Infinite loop
 
 ## Liveness issues with concurrency
-• Deadlock
-• Livelock
-• Starvation
+* Deadlock
+* Livelock
+* Starvation
 
 ## Deadlock
-• Multiple threads are waiting for other threads
-• The dependency is circular
+* Multiple threads are waiting for other threads
+* The dependency is circular
 
 ## Deadlock example
-The "No, you hang up first" problem
-Dependency is circular
+* The "No, you hang up first" problem
+* Dependency is circular* 
 
 ```java
 synchronized(objRef1) {
@@ -523,64 +520,64 @@ synchronized (objRef2) {
 ```
 
 ## Other variants
-Circular invocation of synchronized methods
-s(a)->s(b), s(b)->s(c), s(c)->s(a)
+* Circular invocation of synchronized methods
+* s(a)->s(b), s(b)->s(c), s(c)->s(a)
 
 ## Other variants
-Two threads invoking join on each other
+* Two threads invoking join on each other
 
 ## Result
-Potentially threads waiting forever
+* Potentially threads waiting forever
 
 ## Livelock
-A "smarter" deadlock
+* A "smarter" deadlock
 
 ## A naive solution to deadlock
-• Try to get lock 1
-• Try to get lock 2
-• If lock 2 not acquired in x ms, release lock 1
-• Try again after sometime
+* Try to get lock 1
+* Try to get lock 2
+* If lock 2 not acquired in x ms, release lock 1
+* Try again after sometime
 
 ## Livelock example
-Two people in each other's way in a corridor
+* Two people in each other's way in a corridor
 
 ## Livelock
-• Potential deadlock
-• Steps taken to mitigate deadlock causes perpetual "corrective" action
-• Not completely "dead".
-• ..but all activity is just to get the lock
+* Potential deadlock
+* Steps taken to mitigate deadlock causes perpetual "corrective" action
+* Not completely "dead".
+* ..but all activity is just to get the lock
 
 ## Stalemate in chess
 
 ## Starvation
-Thread is ready to run but is never given a chance
+* Thread is ready to run but is never given a chance
 
 ## Starvation example
-Low priority thread not scheduled by the executor
+* Low priority thread not scheduled by the executor
 
 ## Indefinite postponement
 
 ## Liveness issues with concurrency
-• Deadlock
-• Livelock
-• Starvation
+* Deadlock
+* Livelock
+* Starvation
 
 ## How do you avoid them?
-• No Java / JVM feature to avoid these
-• Careful use of locks
-• Example: Avoid using more than one lock
+* No Java / JVM feature to avoid these
+* Careful use of locks
+* Example: Avoid using more than one lock
 
 # The volatile keyword
 
 ## The visibility problem
 
 ## The synchronized keyword
-Fixes the problem at the boundaries
+* Fixes the problem at the boundaries
 
 ## That may not always be ideal
-• Something else affects when the synchronized block ends
-• Synchronous access might not be a problem
-• You want to just fix visibility
+* Something else affects when the synchronized block ends
+* Synchronous access might not be a problem
+* You want to just fix visibility
 
 ```java
 public class Foo {
@@ -588,17 +585,17 @@ private volatile int value;
 }
 ```
 
-Behavior - given order
-• Thread 1 writes variable (to memory)
-• Thread 2 reads variable (to memory)
+## Behavior - given order
+* Thread 1 writes variable (to memory)
+* Thread 2 reads variable (to memory)
 
 ## Applies to other variables visible in a thread(but only those that are before)
 ```java
 public class Foo {
-private volatile int value;
-private boolean hasValueUpdated;
-hasValueUpdated = true;
-value = 20;
+    private volatile int value;
+    private boolean hasValueUpdated;
+    hasValueUpdated = true;
+    value = 20;
 }
 ```
 
@@ -784,3 +781,109 @@ Future<String> ret = executorService.submit(c);
 // the below will be a blocking
 String retStr = ret.get();
 ```
+```java
+List<Future<Integer>> futures = new ArrayList<>();
+ExecutorService executorService = Executors.newCachedThreadPool();
+while (true) {
+    Scanner sc = new Scanner(System.in);
+    System .out.println("\n I can tell you the nth prime number. Enter n: ");
+    int n = sc.nextInt();
+    if (n == 0) break;
+    Callable<Integer> c = new Callable<Integer>() {
+        @Override
+        public Integer call() throws Exception {
+            return PrimeNumberUtil.calculatePrime(n);
+        }
+    };
+    Future<Integer> primeNumberFuture = executorService.submit (c);
+    futures.add(primeNumberFuture);
+}
+Iterator‹Future<Integer>> iterator = futures.iterator();
+while (iterator.hasNext()) {
+    Future<Integer> f = iterator.next();
+    if (f.isDone()) { // note the done method
+        System.out.println(f.get);
+        iterator.remove();
+    }
+}
+```
+
+## method of future
+```java
+cancel(boolean mayInterruptIfRunning)
+get()
+get(long timeout, TimeUnit unit)
+isCancelled()
+isDone()
+```
+## some notable executorService methods
+```java
+invokeAll (Collection<? extends,Callable<T>> tasks)
+invokeAny (Collection<? extends,Callable<T>> tasks)
+```
+
+# Completable Future
+```java
+CompletableFuture.supplyAsync(() -> "hello")
+.thenAccept((String s) -> System. out.println(s));
+```
+
+```java
+ExecutorService executorService = Executors.newFixedThreadPool (2);
+while (true) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("\n I can tell you the nth prime number. Enter n: ");
+    int n = sc.nextInt();
+    if (n == 0) break;
+    CompletableFuture.supplyAsync(() -> PrimeNumberUtil.calculatePrime(n), executorService)
+    .thenAccept (System. out: :println);
+}
+```
+* if we dont specify the executor service it is going to use a common thread pool( fork join thread pool)
+
+# Semaphores
+
+## "Permit-based" access
+* like passed and permits
+
+## Locks
+* Only one thread at a time
+
+## Semaphores
+* Limited number of threads at a time
+
+## Semaphores
+* Used for managing limited resources in a concurrent environment
+
+```java
+Semaphore semaphore = new Semaphore (3);
+while (true) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("\n I can tell you the nth prime number. Enter n: ");
+    int n = sc.nextInt();
+    if (n == 0) break;
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                semaphore.acquire();
+                System.out.println("Now calculating for " + n) ;
+                int number = PrimeNumberUtil. calculatePrime(n);
+                System.out.println("\n Result:");
+                System.out.println("\n Value of " + n + "th prime: " + number):
+            } catch (InterruptedException e) {
+                System. out.println("Interrupted while |");
+            }
+            finally {
+                semaphore.release();
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
+    }
+}
+```
+```java
+Semaphore semaphore = new Semaphore(3, {fairness:boolean});
+```
+* semaphore does not gurentee that there wont be any concurrency issues.
