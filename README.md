@@ -275,7 +275,7 @@ try {
     Thread. sleep (5000);
 } 
 catch (InterruptedException e) {
-    System. out .printin("Interrupted!"); 4
+    System. out .printin("Interrupted!");
 }
 ```
 
@@ -724,8 +724,8 @@ while(true){
             System.out.println("\n Result:");
             System.out.println("\n Value of " + n + "th prime: " + number);
         };
-        executorService.execute(r);
     }
+    executorService.execute(r);
 }
 ```
 ## How is this handled?
